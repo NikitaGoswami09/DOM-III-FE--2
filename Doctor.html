@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 60%;
+            margin: auto;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        table th {
+            border: 1px solid rgb(0, 88, 139);
+            padding: 8px;
+            text-align: center;
+            background-color:rgb(0,88,139);
+        }
+        table td{
+            padding:8px;
+            text-align:center;
+            background-color:white;
+        }
+        h1{
+            text-align: center;
+            text-decoration:underline;
+            color:rgb(4, 78, 189);
+            font-family:'Courier New', Courier, monospace;
+            font-weight:bold;    
+        }
+        th{
+            color:white;
+        }
+        #S{
+            color:white;
+            background-color:rgb(32, 92, 204);
+            border:rgb(32, 92, 204);
+            height:25px;
+            width:235px;
+            border-radius: 10px;
+        }
+        #table{
+            margin-top:-320px;
+            margin-left:450px;
+        }
+        form{
+            
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            width:300px;
+            
+        }
+       
+    </style>
+</head>
+<body>
+    <h1>HOSPITAL&nbsp;&nbsp-&nbsp;&nbspDOCTOR&nbsp;&nbspRECORDS</h1>
+
+    <div>
+        <div id="M">
+            <form id="doctorForm">
+                <label for="name">Doctor Name</label><br />
+                <input id="name" type="text" placeholder="Enter Doctor Name" required /><br><br>
+                <label for="docID">Doctor ID</label><br />
+                <input id="docID" type="number" placeholder="Enter Doctor ID" required /><br /><br>
+                <label for="dept">Specialization</label><br />
+                <select id="dept" required>
+                    <option value="">Select Specialization</option>
+                    <option value="Dermatologist">Dermatologist</option>
+                    <option value="ENT">ENT</option>
+                    <option value="Dentist">Dentist</option>
+                    <option value="COVID">COVID</option>
+                    <option value="Gynecologist">Gynecologist</option>
+                </select><br /><br>
+                <label for="exp">Experience (in years)</label><br />
+                <input id="exp" type="number" placeholder="Experience in Years" required /><br /><br>
+                <label for="email">Email Address</label><br />
+                <input id="email" type="email" placeholder="Enter Email Address" required /><br /><br>
+                <label for="mbl">Mobile Number</label><br />
+                <input id="mbl" type="tel" placeholder="Enter Mobile number" required /><br /><br>
+                <input id="S" type="submit" value="Submit" />
+            </form>
+        </div>
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Doctor ID</th>
+                    <th>Specialization</th>
+                    <th>Experience in years</th>
+                    <th>Email address</th>
+                    <th>Mobile Number</th>
+                    <th>Role</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="doctorTable">
+                <!-- Output will be appended here -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const form = document.getElementById('doctorForm');
+        const table = document.getElementById('doctorTable');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const docID = document.getElementById('docID').value;
+            const dept = document.getElementById('dept').value;
+            const exp = parseInt(document.getElementById('exp').value);
+            const email = document.getElementById('email').value;
+            const mbl = document.getElementById('mbl').value;
+            let role = "";
+
+            if (exp > 5) {
+                role = "Senior";
+            } else if (exp >= 2 && exp <= 5) {
+                role = "Junior";
+            } else {
+                role = "Trainee";
+            }
+
+            const newRow = table.insertRow(-1);
+            const nameCell = newRow.insertCell(0);
+            const docIDCell = newRow.insertCell(1);
+            const deptCell = newRow.insertCell(2);
+            const expCell = newRow.insertCell(3);
+            const emailCell = newRow.insertCell(4);
+            const mblCell = newRow.insertCell(5);
+            const roleCell = newRow.insertCell(6);
+            const deleteCell = newRow.insertCell(7);
+
+            nameCell.innerHTML = name;
+            docIDCell.innerHTML = docID;
+            deptCell.innerHTML = dept;
+            expCell.innerHTML = exp;
+            emailCell.innerHTML = email;
+            mblCell.innerHTML = mbl;
+            roleCell.innerHTML = role;
+            deleteCell.innerHTML = '<button onclick="deleteRow(this)">Delete</button>';
+
+            form.reset();
+        });
+
+        function deleteRow(btn) {
+            const row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+</body>
+</html>
